@@ -58,6 +58,7 @@ export default {
 				sans: ['SF Pro Display', 'system-ui', 'sans-serif'],
 				serif: ['Playfair Display', 'Georgia', 'serif'],
 				mono: ['SF Mono', 'monospace'],
+				minecraft: ['VT323', 'monospace'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -62,33 +63,39 @@
     @apply tracking-tight;
   }
   
+  /* Minecraft style font for article content */
+  .minecraft-font {
+    font-family: 'VT323', monospace;
+    letter-spacing: 0.5px;
+  }
+  
   /* Markdown content styling */
   .article-content h1 {
-    @apply text-3xl font-bold mb-4 font-serif;
+    @apply text-3xl font-bold mb-4 minecraft-font;
   }
   
   .article-content h2 {
-    @apply text-2xl font-bold mt-6 mb-3 font-serif;
+    @apply text-2xl font-bold mt-6 mb-3 minecraft-font;
   }
   
   .article-content h3 {
-    @apply text-xl font-bold mt-5 mb-2 font-serif;
+    @apply text-xl font-bold mt-5 mb-2 minecraft-font;
   }
   
   .article-content p {
-    @apply my-4 leading-relaxed text-gray-700 font-serif;
+    @apply my-4 leading-relaxed text-gray-700 minecraft-font;
   }
   
   .article-content ul, .article-content ol {
-    @apply my-4 ml-6 font-serif;
+    @apply my-4 ml-6 minecraft-font;
   }
   
   .article-content li {
-    @apply my-1 leading-relaxed text-gray-700 font-serif;
+    @apply my-1 leading-relaxed text-gray-700 minecraft-font;
   }
   
   .article-content blockquote {
-    @apply pl-4 border-l-4 border-gray-300 italic my-4 text-gray-600 font-serif;
+    @apply pl-4 border-l-4 border-gray-300 italic my-4 text-gray-600 minecraft-font;
   }
   
   /* Button styles */

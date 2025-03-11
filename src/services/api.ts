@@ -12,6 +12,7 @@ export interface GenerateArticleParams {
   length: 'short' | 'medium' | 'long';
   tone: string;
   modelId: string;
+  englishLevel?: string;
 }
 
 export interface Article {
@@ -81,13 +82,83 @@ export const getModelNameById = (modelId: string): string => {
   return model ? model.name : 'AI Model';
 };
 
+// Map English level to vocabulary and grammar complexity guidelines
+const getEnglishLevelGuidelines = (level: string = 'b1'): string => {
+  switch (level) {
+    case 'a1':
+      return `
+        Use very basic vocabulary (approximately 500-1000 most common words).
+        Use only present simple and present continuous tenses.
+        Keep sentences very short and simple (3-5 words per sentence).
+        Avoid complex grammar structures completely.
+        Use common, concrete nouns and basic adjectives.
+        Use many repetitions to reinforce vocabulary.
+        Include visual context clues where possible.
+      `;
+    case 'a2':
+      return `
+        Use basic vocabulary (approximately 1000-1500 most common words).
+        Use present simple, present continuous, past simple and future with 'going to'.
+        Keep sentences short (5-7 words per sentence).
+        Use basic conjunctions like 'and', 'but', 'because', 'so'.
+        Include familiar topics related to everyday situations.
+        Write short paragraphs with a clear main idea.
+      `;
+    case 'b1':
+      return `
+        Use intermediate vocabulary (approximately 2000-2500 words).
+        Use a range of tenses including present perfect and past continuous.
+        Use sentences of moderate length (7-10 words).
+        Include some idioms and phrasal verbs, but explain them if they're uncommon.
+        Write well-structured paragraphs with topic sentences.
+        Include some complex sentences with subordinate clauses.
+      `;
+    case 'b2':
+      return `
+        Use upper-intermediate vocabulary (approximately 3000-4000 words).
+        Use a wide range of tenses correctly, including conditionals.
+        Vary sentence structure between simple, compound and complex sentences.
+        Use cohesive devices to link ideas across paragraphs.
+        Include idioms and colloquial expressions where appropriate.
+        Present clear arguments with supporting points.
+      `;
+    case 'c1':
+      return `
+        Use advanced vocabulary (approximately 4000-5000 words) including abstract terms.
+        Use all English tenses and complex grammar structures accurately.
+        Include complex sentences with multiple clauses.
+        Use sophisticated cohesive devices and discourse markers.
+        Include idiomatic expressions naturally within the text.
+        Develop nuanced arguments with multiple perspectives.
+      `;
+    case 'c2':
+      return `
+        Use sophisticated vocabulary without limitations.
+        Use all aspects of English grammar with complete fluency.
+        Vary sentence structure for rhetorical effect.
+        Use subtle nuances of language, including humor and cultural references.
+        Write with complete coherence and cohesion across complex ideas.
+        Include creative language use, metaphors, and analogies.
+      `;
+    default:
+      return `
+        Use intermediate vocabulary (approximately 2000-2500 words).
+        Use a range of tenses including present perfect and past continuous.
+        Use sentences of moderate length (7-10 words).
+        Include some idioms and phrasal verbs, but explain them if they're uncommon.
+      `;
+  }
+};
+
 // Generate prompt for article creation
 const generatePrompt = (params: GenerateArticleParams): string => {
-  const { topic, type, length, tone } = params;
+  const { topic, type, length, tone, englishLevel = 'b1' } = params;
   
   let wordCount = '500-800';
   if (length === 'short') wordCount = '300-500';
   if (length === 'long') wordCount = '1000-1500';
+  
+  const englishLevelGuidelines = getEnglishLevelGuidelines(englishLevel);
   
   return `
   Write a high-quality ${type} about "${topic}". 
@@ -95,6 +166,10 @@ const generatePrompt = (params: GenerateArticleParams): string => {
   The ${type} should be approximately ${wordCount} words in length.
   
   Use a ${tone} tone throughout the ${type}.
+  
+  IMPORTANT: This content is targeted at English language learners at the ${englishLevel.toUpperCase()} level. 
+  Follow these language guidelines strictly:
+  ${englishLevelGuidelines}
   
   Include:
   - A compelling title
