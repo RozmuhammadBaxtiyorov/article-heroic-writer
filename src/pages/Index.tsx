@@ -1,11 +1,157 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
-const Index = () => {
+import React from 'react';
+import Hero from '@/components/Hero';
+import { Link } from 'react-router-dom';
+import { BookText, Sparkles, BookOpen, PenTool, Download, Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+const Index: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-white">
+      <Hero />
+      
+      {/* AI Models Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Advanced AI Models</h2>
+            <p className="max-w-2xl mx-auto text-xl text-gray-500">
+              ArticleHero leverages cutting-edge AI models to generate high-quality content tailored to your needs.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <AIModelCard
+              name="Llama 3.3"
+              description="Meta's cutting-edge model excels at generating accurate, well-structured content."
+              icon={<Sparkles className="h-6 w-6 text-indigo-500" />}
+            />
+            
+            <AIModelCard
+              name="Mistral"
+              description="Excellent for concise writing and clear explanations with high efficiency."
+              icon={<BookText className="h-6 w-6 text-blue-500" />}
+            />
+            
+            <AIModelCard
+              name="DeepSeek"
+              description="Specializes in research-based content and technical explanations."
+              icon={<BookOpen className="h-6 w-6 text-emerald-500" />}
+            />
+            
+            <AIModelCard
+              name="Qwen"
+              description="Produces creative content with varied writing styles and engaging narratives."
+              icon={<PenTool className="h-6 w-6 text-purple-500" />}
+            />
+          </div>
+        </div>
+      </section>
+      
+      {/* Features Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Enhance Your Reading & Writing</h2>
+            <p className="max-w-2xl mx-auto text-xl text-gray-500">
+              ArticleHero provides powerful tools to improve your reading comprehension and content creation.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-10">
+              <FeatureItem
+                icon={<BookText className="h-6 w-6 text-blue-600" />}
+                title="Diverse Content Types"
+                description="Generate articles, blog posts, essays, reports, and stories tailored to your specific needs."
+              />
+              
+              <FeatureItem
+                icon={<PenTool className="h-6 w-6 text-blue-600" />}
+                title="Customizable Generation"
+                description="Control the tone, length, and style of your generated content for the perfect result."
+              />
+              
+              <FeatureItem
+                icon={<Download className="h-6 w-6 text-blue-600" />}
+                title="Export as PDF"
+                description="Download your generated content as beautifully formatted PDF documents ready to share."
+              />
+            </div>
+            
+            <div className="bg-gray-100 p-6 rounded-lg shadow-inner">
+              <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                <h3 className="text-2xl font-bold font-serif text-gray-900 mb-4">Understanding Artificial Intelligence</h3>
+                <div className="prose text-gray-700 font-serif">
+                  <p>Artificial intelligence (AI) represents the simulation of human intelligence processes by machines, especially computer systems. These processes include learning, reasoning, and self-correction.</p>
+                  <p>The field has evolved significantly in recent years, with breakthroughs in natural language processing allowing for more human-like text generation capabilities.</p>
+                  <p>Modern AI systems can analyze vast amounts of data, identify patterns, and generate insights that would be difficult for humans to discover independently.</p>
+                </div>
+                <div className="mt-4 text-sm text-gray-500">
+                  Generated by ArticleHero using Llama 3.3
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Reading and Writing?</h2>
+          <p className="max-w-2xl mx-auto text-xl text-blue-100 mb-10">
+            Start generating high-quality content with ArticleHero today.
+          </p>
+          
+          <Link
+            to="/generate"
+            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50 md:py-4 md:text-lg md:px-8 transition-all shadow-lg"
+          >
+            <Sparkles className="mr-2 h-5 w-5" />
+            Start Generating Now
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+interface AIModelCardProps {
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+const AIModelCard: React.FC<AIModelCardProps> = ({ name, description, icon }) => {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-all">
+      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 mb-5">
+        {icon}
+      </div>
+      <h3 className="text-lg font-semibold text-gray-900 mb-2">{name}</h3>
+      <p className="text-gray-600">{description}</p>
+    </div>
+  );
+};
+
+interface FeatureItemProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) => {
+  return (
+    <div className="flex items-start">
+      <div className="flex-shrink-0">
+        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100">
+          {icon}
+        </div>
+      </div>
+      <div className="ml-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
+        <p className="text-gray-600">{description}</p>
       </div>
     </div>
   );
