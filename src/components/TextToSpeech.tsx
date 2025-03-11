@@ -100,7 +100,7 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ text, title }) => {
   if (!text) return null;
   
   return (
-    <div className="w-full p-4 bg-gray-50 border rounded-lg minecraft-font">
+    <div className="w-full p-4 bg-gray-50 border rounded-lg">
       <div className="flex flex-col space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium text-gray-900">Text-to-Speech</h3>
